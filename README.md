@@ -19,5 +19,5 @@ git clone https://github.com/spo0okie/arms-docker.git .
 
 ## Run
 ```bash
-docker-compose -f ./docker-compose.yml up
+docker compose -f ./docker-compose.yml up
 ```
