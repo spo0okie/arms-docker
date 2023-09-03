@@ -9,7 +9,7 @@
 ```bash
 mkdir /opt/inventory
 cd /opt/inventory
-git pull https://github.com/spo0okie/arms-docker.git .
+git clone https://github.com/spo0okie/arms-docker.git .
 ```
 
 ## Setup
