@@ -1,0 +1,33 @@
+# Последняя версия docker-compose
+version: '3'
+
+# Создаем общую сеть deafult для всех контейнеров
+#networks:
+#  host:
+#    name: host
+#    external: true
+
+# Создаем отдельные контейнеры
+services:
+  # Контейнер с веб-приложением
+  arms-app:
+    # Собираем из Dockerfile 
+    image: spo0okie/inventory:v1
+    # Показываем наружу 80 порт
+    ports: 
+      - "8088:8088"
+    # Подключаем к общей сети с другими контейнерами
+    #networks: 
+    #  - host
+    # Запускаем только после db
+    #depends_on: 
+    #  - db    
+    # Линкуем внешнюю папку с исходниками внутрь
+    volumes:
+      - "./log:/var/log/apache2"
+      - "./config/params.php:/var/www/arms/config/params-local.php"
+      - "./config/db.php:/var/www/arms/config/db-local.php"
+      - "./config/ldap.php:/var/www/arms/config/ldap.php"
+      - "./runtime:/var/www/arms/runtime"
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
