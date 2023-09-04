@@ -21,3 +21,6 @@ git clone https://github.com/spo0okie/arms-docker.git .
 ```bash
 docker compose -f ./docker-compose.yml up
 ```
+
+## Update
+docker pull spo0okie/inventory:v1
