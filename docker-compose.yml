@@ -37,11 +37,11 @@ services:
     environment:
       # вообще он нафиг не нужон, но это mandatory параметр судя по доке
       MYSQL_ROOT_PASSWORD: please_change_me_ASAP
-      MYSQL_RANDOM_ROOT_PASSWORD: yes
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
       MYSQL_DATABASE: arms
       MYSQL_USER: arms-user
       MYSQL_PASSWORD: arms-password
-      MYSQL_INITDB_SKIP_TZINFO: yes
+      MYSQL_INITDB_SKIP_TZINFO: 1
     # выносим дб во вне контейнера чтобы не слетела при обновлении или пересоздании
     # в принципе можно и именованным вольюмом обойтись
     volumes:
