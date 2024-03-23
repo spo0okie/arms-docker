@@ -5,11 +5,6 @@ version: '3.7'
 networks:
   arms:
 
-# конфиг мускла (в винде надо делать read-only, чтоб)
-configs:
-  mysql_config:
-    file: ./config/mysql.cnf
-
 # Создаем отдельные контейнеры
 services:
   # Контейнер с веб-приложением
@@ -46,15 +41,6 @@ services:
     # в принципе можно и именованным вольюмом обойтись
     volumes:
       - "./db:/var/lib/mysql"
+      - "./config/mysql.cnf:/etc/mysql/conf.d/00-arms-init.cnf"
     # Подключаем к общей сети с другими контейнерами
     networks: [arms]
-    # поднастраиваем мускл
-    configs:
-      - source: mysql_config
-        target: /etc/mysql/conf.d/00-arms-init.cnf
-        #target: /etc/my.cnf
-        uid: "999"
-        gid: "999"
-        mode: 0440
-
-
