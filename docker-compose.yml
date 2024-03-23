@@ -22,6 +22,7 @@ services:
       - "./config/ldap.php:/var/www/arms/config/ldap.php"
       - "./config/web.php:/var/www/arms/config/web-local.php"
       - "./files:/var/www/arms/web/scans"
+      - "./runtime:/var/www/arms/runtime"
     depends_on:
       - arms-db
 
