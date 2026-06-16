@@ -28,7 +28,10 @@ services:
 
   # контейнер с БД
   arms-db:
-    image: mysql:8.0
+    # НЕ mysql:8.0 — с ~8.0.37 официальный образ перешёл на Oracle Linux 9, который
+    # требует CPU с x86-64-v2 и падает с "Fatal glibc error" на старых/VDS-процессорах.
+    # Вариант на Oracle Linux 8 собран под базовый x86-64 и работает на таком железе.
+    image: mysql:8.0-oraclelinux8
     restart: always
     environment:
       # вообще он нафиг не нужон, но это mandatory параметр судя по доке
