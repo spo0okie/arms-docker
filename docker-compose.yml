@@ -1,6 +1,3 @@
-# Последняя версия docker-compose
-version: '3.7'
-
 # именованую сеточку делаем, чтобы не рандом бридж
 networks:
   arms:
@@ -21,6 +18,7 @@ services:
       - "./config/params.php:/var/www/arms/config/params-local.php"
       - "./config/ldap.php:/var/www/arms/config/ldap.php"
       - "./config/web.php:/var/www/arms/config/web-local.php"
+      - "./config/db-local.php:/var/www/arms/config/db-local.php"
       - "./files:/var/www/arms/web/scans"
       - "./runtime:/var/www/arms/runtime"
     depends_on:
@@ -28,10 +26,11 @@ services:
 
   # контейнер с БД
   arms-db:
-    # НЕ mysql:8.0 — с ~8.0.37 официальный образ перешёл на Oracle Linux 9, который
-    # требует CPU с x86-64-v2 и падает с "Fatal glibc error" на старых/VDS-процессорах.
-    # Вариант на Oracle Linux 8 собран под базовый x86-64 и работает на таком железе.
-    image: mysql:8.0-oraclelinux8
+    # Данные в ./db в формате MariaDB — MySQL 8.0 их не открывает ("Tablespace flags
+    # are invalid"). К тому же официальный mysql:8.0 с ~8.0.37 требует CPU с x86-64-v2 и
+    # падает на старых/VDS-процессорах. Тег зафиксирован: текущие данные открываются на
+    # 12.3; уход на LTS (11.4) — только через dump/restore (downgrade не поддерживается).
+    image: mariadb:12.3
     restart: always
     environment:
       # вообще он нафиг не нужон, но это mandatory параметр судя по доке
