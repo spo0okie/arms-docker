@@ -21,4 +21,7 @@ docker compose up
 ```
 
 ## Update
-docker pull spo0okie/inventory:v1
+```bash
+docker compose pull      # тег образа мутабельный — без pull новый не подтянется
+docker compose up -d     # пересоздаёт контейнеры; миграции БД накатываются на старте
+```
